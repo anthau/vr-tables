@@ -20,6 +20,7 @@ export default class Station extends React.Component {
         if (station.passengerTraffic) {
           stationCodes.push({ com: station.passengerTraffic, code: station.stationShortCode, name: station.stationName })
         }
+        return 1;
       });
       this.setState({ stations: stationCodes })
     }
