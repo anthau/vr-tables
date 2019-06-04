@@ -4,10 +4,28 @@ import 'react-table/react-table.css'
 import { TrainTables } from './TrainTables.js';
 
 export default class StatioTimeTable extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            dataTable: []
+
+        }
+
+    }
+    async componentWillMount() {
+        this.init(this.props.station)
+    }
+    async init(station) {
+
+        const Vr = new TrainTables(station, this);
+        const tables = await Vr.initData()
+
+
+        return tables;
+
+    }
     render() {
-        alert('moi moi2=' + this.props.station)
-        const Vr = new TrainTables(this.props.station);
-        Vr.returnTimeTables();
+        alert(JSON.stringify(this.state.dataTable));
 
         const data = [{
             name: 'Tanner Linsley',
@@ -20,22 +38,21 @@ export default class StatioTimeTable extends React.Component {
 
         const columns = [{
             Header: 'Name',
-            accessor: 'name' // String-based value accessors!
-        }, {
-            Header: 'Age',
-            accessor: 'age',
-            Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-        }, {
-            id: 'friendName', // Required because our accessor is not a string
-            Header: 'Friend Name',
-            accessor: d => d.friend.name // Custom value accessors!
-        }, {
-            Header: props => <span>Friend Age</span>, // Custom header components!
-            accessor: 'friend.age'
-        }]
+            accessor: 'train' // String-based value accessors!
+        },
+        {
+            Header: 'Target',
+            accessor: 'target' // String-based value accessors!
+        }
+            ,
+        {
+            Header: 'Time',
+            accessor: 'time' // String-based value accessors!
+        }
+        ]
 
         return <ReactTable
-            data={data}
+            data={this.state.dataTable}
             columns={columns}
         />
 

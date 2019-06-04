@@ -15,8 +15,8 @@ export default class StationList extends React.Component {
         let stationName="";
         if(table.length==1)   {
            stationName=(table[0].code)
-           return (<h1><StatioTimeTable station={stationName}/></h1>);
-           alert('Jes');
+           return (<StatioTimeTable station={stationName}/>);
+           
           } else  {
             return (<h1></h1>);
           }   
