@@ -2,30 +2,7 @@ import ReactTable from 'react-table';
 import React from 'react';
 import 'react-table/react-table.css'
 import { TrainTables } from './TrainTables.js';
-
-class Timeformat extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        const timeR = this.props.timeR;
-        const timeA = this.props.timeA;
-
-        if (timeA.indexOf("NaN") > -1 ||  timeR===timeA) {
-            return (<p> {timeR}</p>)
-        }
-        else {
-            return (
-                <div>
-                    <p> {timeA}</p>
-                    <p> ({timeR})</p>
-                </div>
-            )
-        }
-
-    }
-}
+import { Timeformat } from './Timeformat';
 
 export default class StatioTimeTable extends React.Component {
     constructor(props) {
