@@ -3,6 +3,30 @@ import React from 'react';
 import 'react-table/react-table.css'
 import { TrainTables } from './TrainTables.js';
 
+class Timeformat extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        const timeR = this.props.timeR;
+        const timeA = this.props.timeA;
+
+        if (timeA.indexOf("NaN") > -1 ||  timeR===timeA) {
+            return (<p> {timeR}</p>)
+        }
+        else {
+            return (
+                <div>
+                    <p> {timeA}</p>
+                    <p> ({timeR})</p>
+                </div>
+            )
+        }
+
+    }
+}
+
 export default class StatioTimeTable extends React.Component {
     constructor(props) {
         super(props)
@@ -15,26 +39,22 @@ export default class StatioTimeTable extends React.Component {
 
     async init(station) {
 
-        const Vr = new TrainTables(station, this,this.props.mode);
+        const Vr = new TrainTables(station, this, this.props.mode);
         const tables = await Vr.initData()
         return tables;
     }
+
     render() {
-      
-
         this.init(this.props.station);
-        let type="";
+        let type = "";
 
-        if(this.props.mode==="ARRIVAL")  {
-            type="Saapuu";
+        if (this.props.mode === "ARRIVAL") {
+            type = "Saapuu";
         }
 
-        else if(this.props.mode==="DEPARTURE")  {
-            type="Lähtee";
+        else if (this.props.mode === "DEPARTURE") {
+            type = "Lähtee";
         }
-
-
-
 
         const data = [{
             name: 'Tanner Linsley',
@@ -47,21 +67,22 @@ export default class StatioTimeTable extends React.Component {
 
         const columns = [{
             Header: 'Juna',
-            accessor: 'train' // String-based value accessors!
+            accessor: 'train'
         },
         {
             Header: 'Lähtöasema',
-            accessor: 'start' // String-based value accessors!
+            accessor: 'start'
         }
             ,
         {
             Header: 'Pääteasema',
-            accessor: 'target' // String-based value accessors!
+            accessor: 'target'
         }
-        ,
+            ,
         {
             Header: type,
-            accessor: 'time' // String-based value accessors!
+            accessor: 'time',
+            Cell: props => <Timeformat timeR={props.value.timeR} timeA={props.value.timeA} />
         }
         ]
 

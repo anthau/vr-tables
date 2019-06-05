@@ -17,7 +17,7 @@ export class TrainTables {
         const axios = require('axios');
         let stationData = [];
         stationData = await axios.get('https://rata.digitraffic.fi/api/v1/live-trains/station/' + this.station);
-        alert( this.mode);
+   
         stationData.data.map(train => {
 
             if (train.trainCategory == "Long-distance" || train.trainCategory == "Commuter") {
@@ -31,18 +31,14 @@ export class TrainTables {
 
                 try {
                     const current = stops.filter(train => train.stationShortCode == this.station && train.type == this.mode)[0];
-                    const date1 = new Date(current.scheduledTime)
-                    let hours = date1.getHours();
+                   
+                    const timetableTime = new Date(current.scheduledTime)
+                    const actualTime=new Date(current.actualTime)
+                    
+                    const time = formatTime(timetableTime);
+                    const aTime = formatTime(actualTime);
 
-                    if (hours < 10)
-                        hours = "0" + hours;
-
-                    let minutes = date1.getMinutes();
-                    if (minutes < 10)
-                        minutes = "0" + minutes;
-
-                    const time = hours + ":" + minutes;
-                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName,"start" : startPointStation, "time": time })
+                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName,"start" : startPointStation, "time": {"timeR" : time, "timeA" :aTime  } })
                 } catch (e) {
 
                 }
@@ -51,9 +47,21 @@ export class TrainTables {
             return 1;
         });
 
+    
         this.pointer.setState({ dataTable: this.data })
 
         return this.data;
     }
 
 }
+function formatTime(timetableTime) {
+    let hours = timetableTime.getHours();
+    if (hours < 10)
+        hours = "0" + hours;
+    let minutes = timetableTime.getMinutes();
+    if (minutes < 10)
+        minutes = "0" + minutes;
+    const time = hours + ":" + minutes;
+    return time;
+}
+
