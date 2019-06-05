@@ -8,14 +8,16 @@ export default class StationList extends React.Component {
     super(props)
     this.state = {
       mode: "DEPARTURE",
+      sDep: "selected",
+      sArr:""
     };
   }
 
   setArrival()  {
-    this.setState({"mode" : "ARRIVAL"})
+    this.setState({"mode" : "ARRIVAL",sDep:"",sArr:"selected"})
   }
   setDeparture()  {
-    this.setState({"mode" : "DEPARTURE"})
+    this.setState({"mode" : "DEPARTURE",sDep:"selected",sArr:""})
   }
 
   render() {
@@ -29,7 +31,7 @@ export default class StationList extends React.Component {
         stationName = (table[0].code)
         return (
           <div>
-            <input classtype="Button"  onClick={()=>{this.setArrival()}} value="Saapuvat"/><input type="Button"  onClick={()=>{this.setDeparture()}} value="Lähtevät"/>
+            <input type="Button" class={this.state.sArr}  onClick={()=>{this.setArrival()}} value="Saapuvat"/><input class={this.state.sDep} type="Button"  onClick={()=>{this.setDeparture()}} value="Lähtevät"/>
             <StatioTimeTable station={stationName} stationList={this.props.list} mode={this.state.mode} />
           </div>
         );
