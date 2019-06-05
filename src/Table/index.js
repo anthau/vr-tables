@@ -13,11 +13,12 @@ export default class StatioTimeTable extends React.Component {
 
     }
     async componentWillMount() {
+        
         this.init(this.props.station)
     }
     async init(station) {
 
-        const Vr = new TrainTables(station, this);
+        const Vr = new TrainTables(station, this,this.props.stationList);
         const tables = await Vr.initData()
 
 
@@ -25,7 +26,7 @@ export default class StatioTimeTable extends React.Component {
 
     }
     render() {
-        alert(JSON.stringify(this.state.dataTable));
+        alert(this.props.station);
 
         const data = [{
             name: 'Tanner Linsley',
@@ -37,7 +38,7 @@ export default class StatioTimeTable extends React.Component {
         }]
 
         const columns = [{
-            Header: 'Name',
+            Header: 'Name' + this.props.station,
             accessor: 'train' // String-based value accessors!
         },
         {

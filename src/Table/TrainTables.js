@@ -8,7 +8,7 @@ export class TrainTables {
     }
 
     async initData() {
-
+        const stationCodes = this.pointer.props.stationList;
         const axios = require('axios');
         let stationData = [];
         stationData = await axios.get('https://rata.digitraffic.fi/api/v1/live-trains/station/' + this.station);
@@ -18,26 +18,25 @@ export class TrainTables {
                 const stops = train.timeTableRows;
                 const lastStop = stops.slice(-1)[0];
                 const target = lastStop.stationShortCode;
+                const realName = stationCodes.filter(station => station.code == target)[0].name;
+
                 try {
-                const current = stops.filter(train => train.stationShortCode == this.station && train.type == "DEPARTURE")[0]
+                    const current = stops.filter(train => train.stationShortCode == this.station && train.type == "DEPARTURE")[0]
+                    const date1 = new Date(current.scheduledTime)
+                    let hours = date1.getHours();
 
-                const date1 = new Date(current.scheduledTime)
+                    if (hours < 10)
+                        hours = "0" + hours;
 
-                let hours = ""
-                let minutes=date1.getMinutes();
-                if(minutes<10)
-                    minutes="0" + minutes;
+                    let minutes = date1.getMinutes();
+                    if (minutes < 10)
+                        minutes = "0" + minutes;
 
- 
+                    const time = hours + ":" + minutes;
+                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName, "time": time })
+                } catch (e) {
 
-                    hours = date1.getHours() + ":" + minutes;
-             
-              
-
-                this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": target, "time": hours })
-            } catch (e) {
-
-            }
+                }
             }
 
 

@@ -12,7 +12,7 @@ export default class Stations extends React.Component {
   }
 
   update(e) {
-    //this.setState({station_name : e.target.value})
+
     this.setState({ station_name: e.target.value });
   }
 
