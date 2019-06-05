@@ -33,14 +33,6 @@ export default class StatioTimeTable extends React.Component {
             type = "Lähtee";
         }
 
-        const data = [{
-            name: 'Tanner Linsley',
-            age: 26,
-            friend: {
-                name: 'Jason Maurer',
-                age: 23,
-            }
-        }]
 
         const columns = [{
             Header: 'Juna',

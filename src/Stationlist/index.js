@@ -28,7 +28,7 @@ export default class StationList extends React.Component {
       let table = this.props.list.filter(train => train.name.indexOf(this.props.station) > -1);
       let stationName = "";
      
-      if (table.length == 1) {
+      if (table.length === 1) {
         stationName = (table[0].code)
         return (
           <div>
@@ -38,11 +38,11 @@ export default class StationList extends React.Component {
         );
 
       } else {
-        return (<h1></h1>);
+        return (<p></p>);
       }
 
     } catch (e) {
-      return (<h1></h1>);
+      return (<p></p>);
     }
 
   }

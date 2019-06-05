@@ -20,25 +20,23 @@ export class TrainTables {
    
         stationData.data.map(train => {
 
-            if (train.trainCategory == "Long-distance" || train.trainCategory == "Commuter") {
+            if (train.trainCategory === "Long-distance" || train.trainCategory === "Commuter") {
 
                 const stops = train.timeTableRows;
                 const lastStop = stops.slice(-1)[0];
                 const target = lastStop.stationShortCode;
                 const startPoint = train.timeTableRows[0];
-                const startPointStation = stationCodes.filter(station => station.code == startPoint.stationShortCode)[0].name;  ;
-                const realName = stationCodes.filter(station => station.code == target)[0].name;
+                const startPointStation = stationCodes.filter(station => station.code === startPoint.stationShortCode)[0].name;  ;
+                const realName = stationCodes.filter(station => station.code === target)[0].name;
 
                 try {
-                    const current = stops.filter(train => train.stationShortCode == this.station && train.type == this.mode)[0];
-                   
-                    const timetableTime = new Date(current.scheduledTime)
-                    const actualTime=new Date(current.actualTime)
-                    
+                    const current = stops.filter(train => train.stationShortCode === this.station && train.type === this.mode)[0];
+                    const timetableTime = new Date(current.scheduledTime);
+                    const actualTime=new Date(current.actualTime);
                     const time = formatTime(timetableTime);
                     const aTime = formatTime(actualTime);
 
-                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName,"start" : startPointStation, "time": {"timeR" : time, "timeA" :aTime  } })
+                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName,"start" : startPointStation, "time": {"timeR" : time, "timeA" :aTime  } });
                 } catch (e) {
 
                 }
