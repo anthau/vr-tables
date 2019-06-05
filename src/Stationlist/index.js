@@ -5,12 +5,20 @@ import StatioTimeTable from "./../Table"
 export default class StationList extends React.Component {
   constructor(props) {
     super(props)
+
+
+    this.state = {
+
+      mode: "DEPARTURE",
+
+    };
   }
+
   setArrival()  {
-    alert("saapuvat")
+    this.setState({"mode" : "ARRIVAL"})
   }
   setDeparture()  {
-    alert("Lähtevät")
+    this.setState({"mode" : "DEPARTURE"})
   }
 
   render() {
@@ -19,12 +27,13 @@ export default class StationList extends React.Component {
 
       let table = this.props.list.filter(train => train.name.indexOf(this.props.station) > -1);
       let stationName = "";
+     
       if (table.length == 1) {
         stationName = (table[0].code)
         return (
           <div>
             <input type="Button" onClick={()=>{this.setArrival()}} value="Saapuvat"/><input type="Button"  onClick={()=>{this.setDeparture()}} value="Lähtevät"/>
-            <StatioTimeTable station={stationName} stationList={this.props.list} />
+            <StatioTimeTable station={stationName} stationList={this.props.list} mode={this.state.mode} />
           </div>
         );
 

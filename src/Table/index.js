@@ -14,13 +14,27 @@ export default class StatioTimeTable extends React.Component {
     }
 
     async init(station) {
-        const Vr = new TrainTables(station, this);
+
+        const Vr = new TrainTables(station, this,this.props.mode);
         const tables = await Vr.initData()
         return tables;
     }
     render() {
+      
 
         this.init(this.props.station);
+        let type="";
+
+        if(this.props.mode==="ARRIVAL")  {
+            type="Saapuu";
+        }
+
+        else if(this.props.mode==="DEPARTURE")  {
+            type="Lähtee";
+        }
+
+
+
 
         const data = [{
             name: 'Tanner Linsley',
@@ -46,7 +60,7 @@ export default class StatioTimeTable extends React.Component {
         }
         ,
         {
-            Header: 'Lähtee',
+            Header: type,
             accessor: 'time' // String-based value accessors!
         }
         ]

@@ -2,17 +2,22 @@ export class TrainTables {
     station = "";
     data = [];
     pointer = '';
-    constructor(station, pointer) {
+    mode=''
+
+    constructor(station, pointer,mode) {
         this.station = station;
         this.pointer = pointer;
+        this.mode=mode;
       
     }
 
     async initData() {
+
         const stationCodes = this.pointer.props.stationList;
         const axios = require('axios');
         let stationData = [];
         stationData = await axios.get('https://rata.digitraffic.fi/api/v1/live-trains/station/' + this.station);
+        alert( this.mode);
         stationData.data.map(train => {
 
             if (train.trainCategory == "Long-distance" || train.trainCategory == "Commuter") {
@@ -25,9 +30,7 @@ export class TrainTables {
                 const realName = stationCodes.filter(station => station.code == target)[0].name;
 
                 try {
-                    const current = stops.filter(train => train.stationShortCode == this.station && train.type == "DEPARTURE")[0];
-
-                
+                    const current = stops.filter(train => train.stationShortCode == this.station && train.type == this.mode)[0];
                     const date1 = new Date(current.scheduledTime)
                     let hours = date1.getHours();
 
@@ -45,8 +48,6 @@ export class TrainTables {
                 }
                
             }
-
-
             return 1;
         });
 
