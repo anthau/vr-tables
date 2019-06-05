@@ -30,15 +30,14 @@ export class TrainTables {
                 const realName = stationCodes.filter(station => station.code === target)[0].name;
 
                 try {
+                    
                     const current = stops.filter(train => train.stationShortCode === this.station && train.type === this.mode)[0];
-                   
                     const timetableTime = new Date(current.scheduledTime)
                     const actualTime=new Date(current.actualTime)
-                    
                     const time = formatTime(timetableTime);
                     const aTime = formatTime(actualTime);
-
                     this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName,"start" : startPointStation, "time": {"timeR" : time, "timeA" :aTime  } , "timeA" : aTime})
+             
                 } catch (e) {
 
                 }

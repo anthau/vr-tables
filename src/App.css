@@ -1,7 +1,15 @@
 .App {
   text-align: center;
 }
-
+.selected  {
+  color:lightgreen; 
+}
+.header  {
+  background-color: lightgreen;
+  color:white;
+  width: 100%;
+  height:30px
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -21,6 +29,11 @@
 
 .App-link {
   color: #61dafb;
+}
+tr:nth-child(odd) {background: red}
+
+.test  {
+  color:red
 }
 
 @keyframes App-logo-spin {

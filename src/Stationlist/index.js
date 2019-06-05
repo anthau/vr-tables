@@ -1,16 +1,13 @@
 
 import React from 'react';
 import StatioTimeTable from "./../Table"
+import './../App.css';
 
 export default class StationList extends React.Component {
   constructor(props) {
     super(props)
-
-
     this.state = {
-
       mode: "DEPARTURE",
-
     };
   }
 
@@ -32,7 +29,7 @@ export default class StationList extends React.Component {
         stationName = (table[0].code)
         return (
           <div>
-            <input type="Button" onClick={()=>{this.setArrival()}} value="Saapuvat"/><input type="Button"  onClick={()=>{this.setDeparture()}} value="Lähtevät"/>
+            <input classtype="Button"  onClick={()=>{this.setArrival()}} value="Saapuvat"/><input type="Button"  onClick={()=>{this.setDeparture()}} value="Lähtevät"/>
             <StatioTimeTable station={stationName} stationList={this.props.list} mode={this.state.mode} />
           </div>
         );

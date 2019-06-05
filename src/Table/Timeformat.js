@@ -1,4 +1,6 @@
 import React from 'react';
+import './../App.css';
+
 export class Timeformat extends React.Component {
   
     render() {
@@ -10,7 +12,7 @@ export class Timeformat extends React.Component {
         }
         else if (timeR !== timeA) {
             return (<div>
-                <p> {timeA}</p>
+                <p   class={"test"}> {timeA}</p>
                 <p> ({timeR})</p>
             </div>);
         }

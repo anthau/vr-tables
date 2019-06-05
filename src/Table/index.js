@@ -3,6 +3,7 @@ import React from 'react';
 import 'react-table/react-table.css'
 import { TrainTables } from './TrainTables.js';
 import { Timeformat } from './Timeformat';
+import './../App.css';
 
 export default class StatioTimeTable extends React.Component {
     constructor(props) {
@@ -58,6 +59,7 @@ export default class StatioTimeTable extends React.Component {
         return <ReactTable
             data={this.state.dataTable}
             columns={columns}
+            className={"-striped"}
         />
 
     }
