@@ -5,6 +5,7 @@ export class TrainTables {
     constructor(station, pointer) {
         this.station = station;
         this.pointer = pointer;
+      
     }
 
     async initData() {
@@ -15,13 +16,18 @@ export class TrainTables {
         stationData.data.map(train => {
 
             if (train.trainCategory == "Long-distance" || train.trainCategory == "Commuter") {
+
                 const stops = train.timeTableRows;
                 const lastStop = stops.slice(-1)[0];
                 const target = lastStop.stationShortCode;
+                const startPoint = train.timeTableRows[0];
+                const startPointStation = stationCodes.filter(station => station.code == startPoint.stationShortCode)[0].name;  ;
                 const realName = stationCodes.filter(station => station.code == target)[0].name;
 
                 try {
-                    const current = stops.filter(train => train.stationShortCode == this.station && train.type == "DEPARTURE")[0]
+                    const current = stops.filter(train => train.stationShortCode == this.station && train.type == "DEPARTURE")[0];
+
+                
                     const date1 = new Date(current.scheduledTime)
                     let hours = date1.getHours();
 
@@ -33,10 +39,11 @@ export class TrainTables {
                         minutes = "0" + minutes;
 
                     const time = hours + ":" + minutes;
-                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName, "time": time })
+                    this.data.push({ "train": train.trainType + " " + train.trainNumber, "target": realName,"start" : startPointStation, "time": time })
                 } catch (e) {
 
                 }
+               
             }
 
 

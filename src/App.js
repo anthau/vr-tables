@@ -21,11 +21,11 @@ export default class Stations extends React.Component {
     return (
       <div>
         <form>
-          <label>
-            Name:
-    <input onChange={this.update.bind(this)} type="text" name="name" />
-          </label>
-          <input type="button" value="Button" />
+          <p>Hae asemaa nimeltä</p>
+          <input onChange={this.update.bind(this)} type="text" name="name" />
+
+          <br />
+
         </form>
         <Station render={(data) => <StationList list={data} station={this.state.station_name} />} />
 
