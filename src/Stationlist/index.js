@@ -1,6 +1,6 @@
 
 import React from 'react';
-import StatioTimeTable from "./../Table"
+import StationTimeTable from "./../Table"
 import './../App.css';
 
 export default class StationList extends React.Component {
@@ -32,7 +32,7 @@ export default class StationList extends React.Component {
         return (
           <div>
             <input type="Button" class={this.state.sArr}  onClick={()=>{this.setArrival()}} value="Saapuvat"/><input class={this.state.sDep} type="Button"  onClick={()=>{this.setDeparture()}} value="Lähtevät"/>
-            <StatioTimeTable station={stationName} stationList={this.props.list} mode={this.state.mode} />
+            <StationTimeTable station={stationName} stationList={this.props.list} mode={this.state.mode} />
           </div>
         );
 

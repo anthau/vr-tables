@@ -5,7 +5,7 @@ import { TrainTables } from './TrainTables.js';
 import { Timeformat } from './Timeformat';
 import './../App.css';
 
-export default class StatioTimeTable extends React.Component {
+export default class StationTimeTable extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -52,7 +52,7 @@ export default class StatioTimeTable extends React.Component {
         {
             Header: type,
             accessor: 'time',
-            Cell: props => <Timeformat timeR={props.value.timeR} timeA={props.value.timeA} />
+            Cell: props => <Timeformat timeR={props.value.timeR} timeA={props.value.timeA} cancelled={props.value.cancelled} />
         }
         ]
 
