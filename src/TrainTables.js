@@ -1,24 +1,23 @@
-export class TrainTables {
+ class TrainTables {
     station = "";
+    stationList = "";
     data = [];
     pointer = '';
     mode=''
 
-    constructor(station, pointer,mode) {
-        
+    constructor(station, stationList,mode) {
         this.station = station;
-        this.pointer = pointer;
-        this.mode=mode;
-      
+
+        this.stationList = stationList;
+        this.mode=mode;      
     }
 
     async initData() {
-
+        /*
         const stationCodes = this.pointer.props.stationList;
         const axios = require('axios');
         let stationData = [];
         stationData = await axios.get('https://rata.digitraffic.fi/api/v1/live-trains/station/' + this.station);
-   
         stationData.data.map(train => {
 
             if (train.trainCategory === "Long-distance" || train.trainCategory === "Commuter") {
@@ -52,9 +51,11 @@ export class TrainTables {
        this.pointer.setState({ dataTable: this.data })
 
         return this.data;
+        */
     }
 
 }
+export default TrainTables;
 function formatTime(timetableTime) {
     let hours = timetableTime.getHours();
     if (hours < 10)
