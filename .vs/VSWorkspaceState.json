@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\Station",
-    "\\src\\Stationlist",
-    "\\src\\Table"
+    "\\src\\Station"
   ],
-  "SelectedNode": "\\src\\Station\\index.js",
+  "SelectedNode": "\\src\\App.js",
   "PreviewInSolutionExplorer": false
 }

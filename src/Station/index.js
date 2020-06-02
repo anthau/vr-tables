@@ -7,7 +7,7 @@ import './../App.css'
 
 const transform = (data, allStationNames, stationName,mode) => {
    
-    const transformedData = [];
+
     const fullName = (name) => { return allStationNames.filter(station => station.stationShortCode === name)[0].stationName }
 
     const formattTime = (time) => {
@@ -31,58 +31,54 @@ const transform = (data, allStationNames, stationName,mode) => {
         return hours + ":" + minutes;
     }
 
-    data.map(
+    const transformedData = data.map(
         train => {
             const stop = train.timeTableRows.filter(station => station.type === mode && station.stationShortCode === stationName)[0];
             //liveEstimateTime
 
             let time = "";
             if (stop !== undefined) {
-           
+
                 if (stop.cancelled === true) {
-    
+
                     time = "peruutettu"
-          
+
                 }
-                
+
                 else if (stop.cancelled === false && stop.differenceInMinutes === 0) {
                     time = <p>{formattTime(stop.scheduledTime)}</p>
 
                 }
-                else if (stop.cancelled === false &&  "" + stop.liveEstimateTime !== "" + undefined) {
+                else if (stop.cancelled === false && "" + stop.liveEstimateTime !== "" + undefined) {
                     time = <p><em class={"error"}>{formattTime(stop.liveEstimateTime)}</em><br />{formattTime(stop.scheduledTime)}</p>
 
                 }
 
-                else if (stop.cancelled === false &&  stop.differenceInMinutes !== 0  && "" + stop.liveEstimateTime === "" + undefined) {
+                else if (stop.cancelled === false && stop.differenceInMinutes !== 0 && "" + stop.liveEstimateTime === "" + undefined) {
                     time = <p><em class={"error"}>{formattTime(stop.actualTime)}</em><br />{formattTime(stop.scheduledTime)}</p>
 
                 }
-                
-             
+
+
             }
-          
-            
+
+
             const timetableStationExists = train.timeTableRows.filter(station => station.type === mode && station.stationShortCode === stationName).length
-          
+
             if (timetableStationExists !== 0 && train.timeTableRows.filter(station => station.type === mode && station.stationShortCode === stationName)[0].cancelled === false) {
-                
-                transformedData.push({
+                return ({
                     "time": time,
                     "train": train.trainType + ' ' + train.trainNumber,
                     "origin": fullName(train.timeTableRows[0].stationShortCode),
-                    "target": fullName(train.timeTableRows.pop().stationShortCode),
-                }
-                )
-         
-            }
+                    "target": fullName(train.timeTableRows.pop().stationShortCode)
+                });
 
-            return 0;
+            }
+            //empty, filtered out later
+            return ({ "train": "-"});;
         }
     )
-
-
-    return transformedData;
+    return transformedData.filter(train => train.train!=="-");
     
 }
 
@@ -91,8 +87,6 @@ const Station = (props) => {
     const axios = require('axios');
     const stationName = props.name;
     const mode = props.mode;
-
-
     const allStationNames = props.allNames
     const [data1, setData] = useState('');
 
@@ -128,9 +122,7 @@ const Station = (props) => {
 
     if (stationName === '' || data1 === '')
         return (<p></p>)
-    else if (stationName !== '' && data1 !== '') {
-
-    }
+  
      
     return (<ReactTable
         data={data1}
