@@ -17,6 +17,10 @@ const Stations =  () => {
             setallstationData(response.data);
             setstationData(data1[0].stationShortCode)
         })
+        .catch(function (error) {
+            // handle error
+            alert("virhe="  + error);
+          })
     }
 
     const test = (e) => { settempstationName(e.target.value); }

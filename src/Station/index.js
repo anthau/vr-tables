@@ -17,17 +17,10 @@ const transform = (data, allStationNames, stationName,mode) => {
         }
         const date1 = new Date(time);
         let hours = date1.getHours();
+        let minutes= date1.getMinutes();
+        hours = hours<10   ? "0" + hours: hours ;
+        minutes = minutes<10   ? "0" + minutes: minutes ;
 
-        if (hours < 10) {
-            hours = "0" + hours;
-        }
-
-        let minutes = date1.getMinutes();
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-
-       
         return hours + ":" + minutes;
     }
 
@@ -93,7 +86,10 @@ const Station = (props) => {
     if (stationName !== '' && data1==='') {
         axios.get('https://rata.digitraffic.fi/api/v1/live-trains/station/' + stationName).then(function (response) {     
             setData(transform(response.data, allStationNames, stationName,mode));
-        });
+        }).catch(function (error) {
+      
+            alert("virhe="  + error);
+          });
     }
 
 
