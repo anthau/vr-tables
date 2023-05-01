@@ -9,7 +9,7 @@
     "react-async": "^6.2.0",
     "react-dom": "^16.8.6",
     "react-fetch": "0.0.9",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^5.0.1",
     "react-table": "^6.10.0",
     "request": "^2.88.0",
     "uniqid": "^5.2.0",
